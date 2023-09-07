@@ -1,0 +1,131 @@
+:root {
+    --logo-size: 55px;
+  }
+
+* {
+    margin: 0;
+}
+
+button {
+    font-size: 20px;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    padding-left: 24px;
+    padding-right: 24px;
+    border-width: 1px;
+    background-color: white;
+    border-color: #e7dfdf;
+}
+
+button:hover {
+    background-color:#f7f7f7;
+}
+
+.main-container {
+   /* border: 2px solid red;*/
+    display: flex;
+    justify-content: center;
+    /*margin-top: 50px;*/
+}
+.calculator {
+    border: 1px solid #bdbdbd;
+    padding-left: 7px;
+    padding-right: 7px;
+    padding-top: 14px;
+    padding-bottom: 7px;
+    border-radius: 8px;
+    background-color: #f7f7f7;
+    box-shadow: 6px 15px 46px -1px rgba(0,0,0,0.69);
+    /*8px 15px 40px -13px rgba(0,0,0,0.77);*/
+    /*6px 15px 46px -1px rgba(0,0,0,0.69);*/
+
+}
+
+.screen{
+    border: 1px solid #b3adad;
+    margin-bottom: 14px;
+}
+
+.top-screen{
+    background-color:white;
+    height: 40px;
+    /*border: 1px solid yellow;*/
+}
+
+.main-screen{
+    background-color:white;
+    height: 57px;
+    /*border: 1px solid yellow;*/
+    text-align: right;
+    font-size: 43px;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+.button-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 5px;
+}
+
+.btn-gray{
+    background-color: #f7f7f7
+    
+}
+
+.btn-gray:hover{
+    background-color: #e2dfdf;
+}
+
+.btn-blue{
+    background-color: #6596dd;
+    /*#90b9f5;*/
+}
+
+.btn-blue:hover{
+    background-color: #7cb2ff;
+}
+
+.title-container{
+    /* border: 2px solid rgb(97, 7, 7);*/
+     display: flex;
+     justify-content: center;
+     margin-bottom: 70px;
+     border-bottom: 2px solid #dedede;
+     
+}
+
+.title{
+    /*border: 2px solid red;*/
+    font-size: var(--logo-size);
+    font-family: 'Roboto Mono', monospace;;
+    font-weight: bold;
+    color: black;
+}
+
+
+#calc-icon{
+    margin-top: 7px;
+    margin-right: 6px;
+    font-size: var(--logo-size);
+}
+
+footer{
+    background-color: white;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+    border-top: 2px solid #dedede;
+    font-family: 'Roboto Mono', monospace;
+   
+}
+
+/*
+
+font-family: 'Nunito', sans-serif;
+font-family: 'Roboto Mono', monospace;
+
+
+*/
