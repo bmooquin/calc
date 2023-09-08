@@ -68,6 +68,8 @@ const keypadBackspace = document.querySelector("#backspace");
 
 mainScreen.textContent = Number(displayNumber.join());
 
+
+
 function keypadClick(number){
 /*
     if(number == 0 && displayNumber.length == 0 && numsToOperate.length != 1 && displayNumber[0] == "0"){
@@ -127,6 +129,18 @@ function addOperator(opp){
     clearDisplayNumber();
 }
 
+function checkSize(initValue){
+    const stringValue = initValue.toString();
+    let procString;
+
+    if(stringValue.length > 14){
+        procString = stringValue.slice(0,13);
+        return Number(procString);
+    }
+
+    return initValue;
+}
+
 //event listeners for special operator keypads
 
 keypadEqual.addEventListener("click",function(){
@@ -151,8 +165,23 @@ keypadEqual.addEventListener("click",function(){
     if(numsToOperate.length == 1){
         numsToOperate.push(0);
     }
-       result = operate(currOperator, numsToOperate[0],numsToOperate[1]);
+       ///*****WE ARE CURRENTLY WORKING IN THE AREA BELOW*********/
+
+       
+       const locResult = operate(currOperator, numsToOperate[0],numsToOperate[1]);
+       result = checkSize(locResult);
+
        mainScreen.textContent = result;
+       
+
+
+       ///*************************SEE ABOVE**********************/
+       //************************ORIGINAL CODE BELOW**************/
+
+       //result = operate(currOperator, numsToOperate[0],numsToOperate[1]);
+       //mainScreen.textContent = result;
+
+       //************************ORIGINAL CODE ABOVE**************/
    
     clearDisplayNumber();
     currOperator = null;
