@@ -9,45 +9,49 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@1000&family=Roboto+Mono:wght@600&display=swap" rel="stylesheet">
-
+    <script src="https://kit.fontawesome.com/dff77b93b4.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <script src="https://kit.fontawesome.com/dff77b93b4.js" crossorigin="anonymous"></script>
+
+    
     <div class = "title-container">
         <i id="calc-icon" class="fa-solid fa-calculator"></i>
-        <div class = "title">CALC</div>
+        <div class = "title">C<span id="logo-color">A</span>LC</div>
     </div>
-    <div class = "main-container">
+    <div id="mc" class = "main-container">
         <div class = "calculator">
             <div class = "screen">
                 <div class = "top-screen"></div>
-                <div class = "main-screen">0</div>
+                <div class = "main-screen"></div>
             </div>
             <div class = "button-grid">
-                <button class = "btn-gray">⌫</button>
-                <button class = "btn-gray">C</button>
+                <button id = "backspace" class = "btn-gray">⌫</button>
+                <button id = "clear" class = "btn-gray">C</button>
                 <button class = "btn-gray">CE</button>
-                <button class = "btn-gray">÷</button>
-                <button>7</button>
-                <button>8</button>
-                <button>9</button>
-                <button class = "btn-gray">×</button>
-                <button>4</button>
-                <button>5</button>
-                <button>6</button>
-                <button class = "btn-gray">-</button>
-                <button>1</button>
-                <button>2</button>
-                <button>3</button>
-                <button class = "btn-gray">+</button>
+                <button id = "divide-opp" class = "btn-gray">÷</button>
+                <button id = "seven">7</button>
+                <button id = "eight">8</button>
+                <button id = "nine">9</button>
+                <button id = "multiply-opp" class = "btn-gray">×</button>
+                <button id = "four">4</button>
+                <button id = "five">5</button>
+                <button id = "six">6</button>
+                <button id = "subtract-opp" class = "btn-gray">-</button>
+                <button id = "one">1</button>
+                <button id = "two">2</button>
+                <button id = "three">3</button>
+                <button id = "plus-opp" class = "btn-gray">+</button>
                 <button>⁺/₋</button>
-                <button>0</button>
+                <button id = "zero">0</button>
                 <button>.</button>
-                <button class = "btn-blue">=</button>
+                <button id = "equals-opp" class = "btn-blue">=</button>
             </div>
         </div>
     </div>
     <footer>Designed by Bilal Mooquin<footer>
+
+
+    <script src="script.js"></script>
     
 </body>
 </html>
