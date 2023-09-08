@@ -21,14 +21,20 @@ testArr.splice(0,testArr.length);
 
 console.log(testArr);
 
-
+//this holds the numbers that are two be processed
 const numsToOperate = [];
 
 
 let firstNumber;
 let secondNumber; 
+
+//This holds the currOperator 
 let currOperator;
 
+//this holds the result of an equation. this is used to compare to 
+//what is on the main screen in order to prevent the equals button being 
+//the second time after it has initially been pressed with only one result 
+//(the one time it is pressed with one result, it adds a 0 to the numsToOperate[])
 let result;
 
 const displayNumber = [0]
@@ -74,6 +80,16 @@ function keypadClick(number){
         updateMainScreen();
     }
 
+     if(result == Number(displayNumber.join(""))){
+        console.log(result == Number(displayNumber.join("")));
+        //clearDisplayNumber();
+        //clearNumsToOperate();
+        result = null;
+     }
+
+     
+
+
     //displayNumber[0] != 0
 
 
@@ -112,11 +128,12 @@ keypadEqual.addEventListener("click",function(){
 
     //BELOW WAS THE OLD CODE. RESTORE FROM HERE
     //numsToOperate.push(Number(displayNumber.join("")));
+    
     if(result == mainScreen.textContent){
         return;
-    }
+     }
 
-    //DELETE FROM HERE
+
     if(numsToOperate.length != 2){
         numsToOperate.push(Number(displayNumber.join("")));
     }
@@ -124,7 +141,7 @@ keypadEqual.addEventListener("click",function(){
         clearNumsToOperate();
         numsToOperate.push(Number(displayNumber.join("")));
     }
-    //TO HERE
+   
 
     if(numsToOperate.length == 1){
         numsToOperate.push(0);
