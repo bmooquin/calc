@@ -76,6 +76,14 @@ function keypadClick(number){
         return
     }*/
 
+    if(number == 0 && displayNumber[0] == 0 && displayNumber.length == 1){
+        //console.log("Disabled button");
+        return;
+    }
+     
+
+
+
     if(numsToOperate.length == 2){
         clearNumsToOperate();
     }
@@ -93,8 +101,7 @@ function keypadClick(number){
      }
 
 
-
-
+     
 
 
     //displayNumber[0] != 0
@@ -165,8 +172,6 @@ keypadEqual.addEventListener("click",function(){
     if(numsToOperate.length == 1){
         numsToOperate.push(0);
     }
-       ///*****WE ARE CURRENTLY WORKING IN THE AREA BELOW*********/
-
        
        const locResult = operate(currOperator, numsToOperate[0],numsToOperate[1]);
        result = checkSize(locResult);
@@ -174,14 +179,9 @@ keypadEqual.addEventListener("click",function(){
        mainScreen.textContent = result;
        
 
-
-       ///*************************SEE ABOVE**********************/
-       //************************ORIGINAL CODE BELOW**************/
-
        //result = operate(currOperator, numsToOperate[0],numsToOperate[1]);
        //mainScreen.textContent = result;
 
-       //************************ORIGINAL CODE ABOVE**************/
    
     clearDisplayNumber();
     currOperator = null;
@@ -200,21 +200,45 @@ keypadBackspace.addEventListener("click",function(){
 //event listeners for mathematical operator keypads
 
 keypadPlus.addEventListener("click",function(){
+
+    if(numsToOperate.length == 1 || (displayNumber.length == 1 && numsToOperate.length == 0)){
+        return;
+    }
+
+    //if((displayNumber.length == 1 && numsToOperate.length == 0)){
+       // return;
+    //}
+
     addOperator("+");
     debugHelp();
 });
 
 keypadSubtract.addEventListener("click",function(){
+
+    if(numsToOperate.length == 1 || (displayNumber.length == 1 && numsToOperate.length == 0)){
+        return;
+    }
+
     addOperator("-");
     debugHelp();
 });
 
 keypadMultiply.addEventListener("click",function(){
+
+    if(numsToOperate.length == 1 || (displayNumber.length == 1 && numsToOperate.length == 0)){
+        return;
+    }
+
     addOperator("*");
     debugHelp();
 })
 
 keypadDivide.addEventListener("click",function(){
+
+    if(numsToOperate.length == 1 || (displayNumber.length == 1 && numsToOperate.length == 0)){
+        return;
+    }
+
     addOperator("/");
     debugHelp();
 })
