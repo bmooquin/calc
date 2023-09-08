@@ -74,11 +74,14 @@ function keypadClick(number){
         return
     }*/
 
+    if(numsToOperate.length == 2){
+        clearNumsToOperate();
+    }
 
     if(displayNumber.length < 14){
         displayNumber.push(number);
         updateMainScreen();
-    }
+    } 
 
      if(result == Number(displayNumber.join(""))){
         console.log(result == Number(displayNumber.join("")));
@@ -87,7 +90,9 @@ function keypadClick(number){
         result = null;
      }
 
-     
+
+
+
 
 
     //displayNumber[0] != 0
@@ -150,6 +155,7 @@ keypadEqual.addEventListener("click",function(){
        mainScreen.textContent = result;
    
     clearDisplayNumber();
+    currOperator = null;
     debugHelp();
    
 })
