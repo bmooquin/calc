@@ -160,10 +160,11 @@ function checkSize(initValue){
 
 keypadEqual.addEventListener("click",function(){
 
-    //BELOW WAS THE OLD CODE. RESTORE FROM HERE
-    //numsToOperate.push(Number(displayNumber.join("")));
-    
-    if(result == mainScreen.textContent){
+    //HERE:
+    //console.log("BOOLEAN EVALUATES TO: " + (numsToOperate.length == 1 && !(currOperator == null) && displayNumber.length == 1));
+
+    if(result == mainScreen.textContent || (numsToOperate.length == 1 && !(currOperator == null) && displayNumber.length == 1)){
+        console.log("disabled button");
         return;
      }
 
