@@ -76,18 +76,19 @@ function keypadClick(number){
         return
     }*/
 
-    if(number == 0 && displayNumber[0] == 0 && displayNumber.length == 1){
-        //console.log("Disabled button");
+    if(number == 0 && displayNumber[0] == 0 && numsToOperate.length != 1){
+        console.log("Disabled button");
         return;
     }
      
 
 
 
-    if(numsToOperate.length == 2){
+    if(numsToOperate.length == 2 ){
         clearNumsToOperate();
     }
 
+    //***HERE */ changed from displayNumber.length == 1 to numsToOperate.length = 1
     if(displayNumber.length < 14){
         displayNumber.push(number);
         updateMainScreen();
@@ -113,9 +114,11 @@ function keypadClick(number){
 //helper functions
 
 function debugHelp(){
+    console.log("------");
     console.log("displayNumber: " + displayNumber);
     console.log("numsToOperate: " + numsToOperate);
     console.log("result: " +  result);
+    console.log("currOperater: " + currOperator);
 }
 
 function updateMainScreen(){
@@ -132,7 +135,12 @@ function clearNumsToOperate(){
 
 function addOperator(opp){
     currOperator = opp;
+
+//EDIT THE LINE BELOW TO GO BACK TO THE OLD CODE, JUST REMOVE THE IF STATEMENT!!!!!!!!
+if(numsToOperate.length < 2){
     numsToOperate.push(Number(displayNumber.join("")));
+}
+//**************************/
     clearDisplayNumber();
 }
 
@@ -201,7 +209,19 @@ keypadBackspace.addEventListener("click",function(){
 
 keypadPlus.addEventListener("click",function(){
 
+    if(currOperator == "+"){
+        return;
+    }
+
+
+    if(Number(displayNumber.join()) == 0){
+        addOperator("+");
+        debugHelp();
+        return;
+    }
+
     if(numsToOperate.length == 1 || (displayNumber.length == 1 && numsToOperate.length == 0)){
+        console.log("disabled button");
         return;
     }
 
@@ -215,7 +235,18 @@ keypadPlus.addEventListener("click",function(){
 
 keypadSubtract.addEventListener("click",function(){
 
+    if(currOperator == "-"){
+        return;
+    }
+
+    if(Number(displayNumber.join()) == 0){
+        addOperator("-");
+        debugHelp();
+        return;
+    }
+
     if(numsToOperate.length == 1 || (displayNumber.length == 1 && numsToOperate.length == 0)){
+        console.log("disabled button");
         return;
     }
 
@@ -225,9 +256,29 @@ keypadSubtract.addEventListener("click",function(){
 
 keypadMultiply.addEventListener("click",function(){
 
-    if(numsToOperate.length == 1 || (displayNumber.length == 1 && numsToOperate.length == 0)){
+    if(currOperator == "*"){
         return;
     }
+
+
+    if(Number(displayNumber.join()) == 0){
+        addOperator("*");
+        debugHelp();
+        return;
+    }
+
+     if(numsToOperate.length == 1 || (displayNumber.length == 1 && numsToOperate.length == 0)){
+        console.log("disabled button");
+        return;
+     }
+
+  
+    // if(numsToOperate.length == 1 || (displayNumber.length == 1 && numsToOperate.length == 0)){
+    //     console.log("disabled button");
+    //     return;
+    // }
+
+
 
     addOperator("*");
     debugHelp();
@@ -235,7 +286,19 @@ keypadMultiply.addEventListener("click",function(){
 
 keypadDivide.addEventListener("click",function(){
 
+    if(currOperator == "/"){
+        return;
+    }
+
+
+    if(Number(displayNumber.join()) == 0){
+        addOperator("/");
+        debugHelp();
+        return;
+    }
+
     if(numsToOperate.length == 1 || (displayNumber.length == 1 && numsToOperate.length == 0)){
+        console.log("disabled button")
         return;
     }
 
@@ -248,6 +311,7 @@ keypadDivide.addEventListener("click",function(){
 keypadClear.addEventListener("click",function(){
     clearDisplayNumber();
     clearNumsToOperate();
+    currOperator = null;
     mainScreen.textContent = Number(displayNumber.join(""));
     debugHelp();
 });
@@ -318,9 +382,13 @@ function operate(opp,numOne,numTwo){
     if(opp == "+"){
         result = add(numOne,numTwo);
     }else if(opp == "-"){
+        console.log(numOne + currOperator + numTwo);
         result = subtract(numOne,numTwo);
+        console.log(result);
     }else if(opp == "*"){
+        console.log(numOne + currOperator + numTwo);
         result = multiply(numOne,numTwo);
+        console.log(result);
     }else if(opp == "/"){
         result = divide(numOne,numTwo);
     }else{
