@@ -5,7 +5,6 @@ const htmlBody = document.querySelector("body");
 //console.log(htmlBody);
 const newDiv = document.createElement("div");
 //console.log(newDiv);
-newDiv.textContent = "THIS IS A TEST";
 htmlBody.appendChild(newDiv);
 
 console.log(typeof 2.6);
@@ -31,10 +30,6 @@ let secondNumber;
 //This holds the currOperator 
 let currOperator;
 
-//this holds the result of an equation. this is used to compare to 
-//what is on the main screen in order to prevent the equals button being 
-//the second time after it has initially been pressed with only one result 
-//(the one time it is pressed with one result, it adds a 0 to the numsToOperate[])
 let result;
 
 const displayNumber = [0]
@@ -68,7 +63,11 @@ const keypadBackspace = document.querySelector("#backspace");
 
 mainScreen.textContent = Number(displayNumber.join());
 
-
+function removeTrailingZerosDN(){
+    if(displayNumber[0] == 0 && displayNumber[1] == 0){
+        displayNumber.splice(1,1);
+    }
+}
 
 function keypadClick(number){
 /*
@@ -76,11 +75,22 @@ function keypadClick(number){
         return
     }*/
 
-    if(number == 0 && displayNumber[0] == 0 && numsToOperate.length != 1){
-        console.log("Disabled button");
-        return;
-    }
-     
+    //WE ARE OVER HERE//
+
+
+    console.log("Zero Status: " + (number == 0 && displayNumber[0] == 0 && numsToOperate.length != 1) )
+
+    //STEP 1: TO COMMENT OUT THE BELOW LINES 
+    //NOW IT SHOULD ALLOW TO ENTER ZERO ANY TIME, AND THERE SHOULD NOT BE MULTIPLE DISPLAYS OF ZERO
+    //HOPEFULLY THE 0 FIRST OPERATIONS WILL STILL WORK CORRECTLY 
+
+    // if(number == 0 && displayNumber[0] == 0 && numsToOperate.length != 1){
+    //     console.log("Disabled button");
+    //     return;
+    // }
+
+    //NOW WE WILL HAVE TO PROGRAM THE LOGIC THAT DOESN'T USE displayNumber.length to implememnt the 
+    //maximum character limit      
 
 
 
@@ -88,9 +98,28 @@ function keypadClick(number){
         clearNumsToOperate();
     }
 
-    //***HERE */ changed from displayNumber.length == 1 to numsToOperate.length = 1
+    //STEP 2: TEMPORARILY COMMENTING OUT THE IF STATMENT TO SEE THE RESULTS OF STRING LENGTH 
+
+    //STEP 3: GOING TO REPLACE THE FOLLOWING: 
+    //if(displayNumber.length < 14) with if( displayNumber.join("").length < 14)
+    //because the above should not increase if there are zeros upon zeros entered, it should stay at 1 
+
+    
+    
+    //STEP 4: WE ARE GOING TO TRY TO MAKE IT SO THAT IF THE NUMBER IS ALREADY ZERO, THEN WE WILL NOT 
+    //UPDATE THE displayNumber.... WE WILL NEED TO IMMEDIATELY TEST ALL OF THE ZERO OPERATIONS TO MAKE SURE
+    //THEY WORK... IT WILL NOT WORK, BUT IT MAY WORK IF WE CHANGE THE CODE TO UPDATE ....TRYING TO USE A NESTED IF STATEMENT
+    //Old Code below:
+    //            displayNumber.push(number);
+    //            updateMainScreen();
+    //within the displayNumber.length < 14 if statement 
+
+
+    console.log("displayNumber String Length: " + displayNumber.join("").length);
+//remove the nested if statement below to restore 
     if(displayNumber.length < 14){
         displayNumber.push(number);
+        removeTrailingZerosDN();
         updateMainScreen();
     } 
 
@@ -100,10 +129,7 @@ function keypadClick(number){
         //clearNumsToOperate();
         result = null;
      }
-
-
      
-
 
     //displayNumber[0] != 0
 
@@ -114,7 +140,6 @@ function keypadClick(number){
 //helper functions
 
 function debugHelp(){
-    console.log("------");
     console.log("displayNumber: " + displayNumber);
     console.log("numsToOperate: " + numsToOperate);
     console.log("result: " +  result);
@@ -136,13 +161,27 @@ function clearNumsToOperate(){
 function addOperator(opp){
     currOperator = opp;
 
-//EDIT THE LINE BELOW TO GO BACK TO THE OLD CODE, JUST REMOVE THE IF STATEMENT!!!!!!!!
-if(numsToOperate.length < 2){
+//WE ARE NOW HERE FROM THE keypadClick function... we are going to write a seperate function
+//that removes the trailing zeros from the displayNumber
+
+
+
+
+//PREVIOUS: if(numsToOperate.length < 2)
+//!(displayNumber.length == 1 && !(currOperator == null))
+
+
+console.log(
+    "status: " + (numsToOperate.length < 2 && !(displayNumber.length == 1 && !(currOperator == null)))
+)
+
+if(numsToOperate.length < 2 && !(displayNumber.length == 1 && !(currOperator == null) && numsToOperate.length == 1)){
     numsToOperate.push(Number(displayNumber.join("")));
 }
-//**************************/
     clearDisplayNumber();
 }
+
+
 
 function checkSize(initValue){
     const stringValue = initValue.toString();
@@ -160,11 +199,12 @@ function checkSize(initValue){
 
 keypadEqual.addEventListener("click",function(){
 
-    //HERE:
-    //console.log("BOOLEAN EVALUATES TO: " + (numsToOperate.length == 1 && !(currOperator == null) && displayNumber.length == 1));
 
-    if(result == mainScreen.textContent || (numsToOperate.length == 1 && !(currOperator == null) && displayNumber.length == 1)){
+    //TEMPORARILY DISABLING THE PREVENTATIVE QUALIFIER
+    
+    if(result == mainScreen.textContent /* ||  (numsToOperate.length == 1 && !(currOperator == null) && displayNumber.length == 1)*/){
         console.log("disabled button");
+        console.log((numsToOperate.length == 1 && !(currOperator == null) && displayNumber.length == 1));
         return;
      }
 
