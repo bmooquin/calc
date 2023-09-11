@@ -9,14 +9,14 @@ htmlBody.appendChild(newDiv);
 
 console.log(typeof 2.6);
 
-const testArr2 = [2,".",6];
+const testArr2 = [2, ".", 6];
 console.log(typeof Number(testArr2.join("")));
 
-const testArr = [1,2,3];
+const testArr = [1, 2, 3];
 
 console.log(testArr);
 
-testArr.splice(0,testArr.length);
+testArr.splice(0, testArr.length);
 
 console.log(testArr);
 
@@ -25,7 +25,7 @@ const numsToOperate = [];
 
 
 let firstNumber;
-let secondNumber; 
+let secondNumber;
 
 //This holds the currOperator 
 let currOperator;
@@ -60,24 +60,25 @@ const keypadEqual = document.querySelector("#equals-opp");
 const mainScreen = document.querySelector(".main-screen");
 const keypadClear = document.querySelector("#clear");
 const keypadBackspace = document.querySelector("#backspace");
+const keypadNegate = document.querySelector("#negate");
 
 mainScreen.textContent = Number(displayNumber.join());
 
-function removeTrailingZerosDN(){
-    if(displayNumber[0] == 0 && displayNumber[1] == 0){
-        displayNumber.splice(1,1);
+function removeTrailingZerosDN() {
+    if (displayNumber[0] == 0 && displayNumber[1] == 0) {
+        displayNumber.splice(1, 1);
     }
 }
 
-function keypadClick(number){
-/*
-    if(number == 0 && displayNumber.length == 0 && numsToOperate.length != 1 && displayNumber[0] == "0"){
-        return
-    }*/
+function keypadClick(number) {
+    /*
+        if(number == 0 && displayNumber.length == 0 && numsToOperate.length != 1 && displayNumber[0] == "0"){
+            return
+        }*/
 
 
 
-    console.log("Zero Status: " + (number == 0 && displayNumber[0] == 0 && numsToOperate.length != 1) )
+    console.log("Zero Status: " + (number == 0 && displayNumber[0] == 0 && numsToOperate.length != 1))
 
 
     // if(number == 0 && displayNumber[0] == 0 && numsToOperate.length != 1){
@@ -88,7 +89,7 @@ function keypadClick(number){
 
 
 
-    if(numsToOperate.length == 2 ){
+    if (numsToOperate.length == 2) {
         clearNumsToOperate();
     }
 
@@ -96,7 +97,7 @@ function keypadClick(number){
     //if(displayNumber.length < 14) with if( displayNumber.join("").length < 14)
     //because the above should not increase if there are zeros upon zeros entered, it should stay at 1 
 
-    
+
 
     //Old Code below:
     //            displayNumber.push(number);
@@ -105,20 +106,20 @@ function keypadClick(number){
 
 
     console.log("displayNumber String Length: " + displayNumber.join("").length);
-//remove the nested if statement below to restore 
-    if(displayNumber.length < 14){
+    //remove the nested if statement below to restore 
+    if (displayNumber.length < 14) {
         displayNumber.push(number);
         removeTrailingZerosDN();
         updateMainScreen();
-    } 
+    }
 
-     if(result == Number(displayNumber.join(""))){
+    if (result == Number(displayNumber.join(""))) {
         console.log(result == Number(displayNumber.join("")));
         //clearDisplayNumber();
         //clearNumsToOperate();
         result = null;
-     }
-     
+    }
+
 
     //displayNumber[0] != 0
 
@@ -128,56 +129,58 @@ function keypadClick(number){
 
 //helper functions
 
-function debugHelp(){
+function debugHelp() {
     console.log("displayNumber: " + displayNumber);
     console.log("numsToOperate: " + numsToOperate);
-    console.log("result: " +  result);
+    console.log("result: " + result);
     console.log("currOperater: " + currOperator);
 }
 
-function updateMainScreen(){
+function updateMainScreen() {
     mainScreen.textContent = Number(displayNumber.join(""));
 }
 
-function clearDisplayNumber(){
-    displayNumber.splice(1,displayNumber.length);
+function clearDisplayNumber() {
+    //old code: displayNumber.splice(1,displayNumber.length);
+    displayNumber.splice(0, displayNumber.length);
+    displayNumber.push(0);
 }
 
-function clearNumsToOperate(){
-    numsToOperate.splice(0,numsToOperate.length);
+function clearNumsToOperate() {
+    numsToOperate.splice(0, numsToOperate.length);
 }
 
-function addOperator(opp){
+function addOperator(opp) {
     currOperator = opp;
 
-//WE ARE NOW HERE FROM THE keypadClick function... we are going to write a seperate function
-//that removes the trailing zeros from the displayNumber
+    //WE ARE NOW HERE FROM THE keypadClick function... we are going to write a seperate function
+    //that removes the trailing zeros from the displayNumber
 
 
 
 
-//PREVIOUS: if(numsToOperate.length < 2)
-//!(displayNumber.length == 1 && !(currOperator == null))
+    //PREVIOUS: if(numsToOperate.length < 2)
+    //!(displayNumber.length == 1 && !(currOperator == null))
 
 
-console.log(
-    "status: " + (numsToOperate.length < 2 && !(displayNumber.length == 1 && !(currOperator == null)))
-)
+    console.log(
+        "status: " + (numsToOperate.length < 2 && !(displayNumber.length == 1 && !(currOperator == null)))
+    )
 
-if(numsToOperate.length < 2 && !(displayNumber.length == 1 && !(currOperator == null) && numsToOperate.length == 1)){
-    numsToOperate.push(Number(displayNumber.join("")));
-}
+    if (numsToOperate.length < 2 && !(displayNumber.length == 1 && !(currOperator == null) && numsToOperate.length == 1)) {
+        numsToOperate.push(Number(displayNumber.join("")));
+    }
     clearDisplayNumber();
 }
 
 
 
-function checkSize(initValue){
+function checkSize(initValue) {
     const stringValue = initValue.toString();
     let procString;
 
-    if(stringValue.length > 14){
-        procString = stringValue.slice(0,13);
+    if (stringValue.length > 14) {
+        procString = stringValue.slice(0, 13);
         return Number(procString);
     }
 
@@ -186,96 +189,121 @@ function checkSize(initValue){
 
 //event listeners for special operator keypads
 
-keypadEqual.addEventListener("click",function(){
+keypadEqual.addEventListener("click", function () {
 
 
     //TEMPORARILY DISABLING THE PREVENTATIVE QUALIFIER
-    
-    if(result == mainScreen.textContent /* ||  (numsToOperate.length == 1 && !(currOperator == null) && displayNumber.length == 1)*/){
+
+    if (result == mainScreen.textContent /* ||  (numsToOperate.length == 1 && !(currOperator == null) && displayNumber.length == 1)*/) {
         console.log("disabled button");
         console.log((numsToOperate.length == 1 && !(currOperator == null) && displayNumber.length == 1));
         return;
-     }
+    }
 
 
-    if(numsToOperate.length != 2){
+    if (numsToOperate.length != 2) {
         numsToOperate.push(Number(displayNumber.join("")));
     }
-    else{
+    else {
         clearNumsToOperate();
         numsToOperate.push(Number(displayNumber.join("")));
     }
-   
 
-    if(numsToOperate.length == 1){
+
+    if (numsToOperate.length == 1) {
         numsToOperate.push(0);
     }
-       
-       const locResult = operate(currOperator, numsToOperate[0],numsToOperate[1]);
-       result = checkSize(locResult);
 
-       mainScreen.textContent = result;
-       
+    const locResult = operate(currOperator, numsToOperate[0], numsToOperate[1]);
+    result = checkSize(locResult);
 
-       //result = operate(currOperator, numsToOperate[0],numsToOperate[1]);
-       //mainScreen.textContent = result;
+    mainScreen.textContent = result;
 
-   
+
+    //result = operate(currOperator, numsToOperate[0],numsToOperate[1]);
+    //mainScreen.textContent = result;
+
+
     clearDisplayNumber();
     currOperator = null;
     debugHelp();
-   
+
 })
 
-keypadBackspace.addEventListener("click",function(){
-    if(displayNumber.length != 1){
+keypadBackspace.addEventListener("click", function () {
+    if (displayNumber.length != 1) {
         displayNumber.pop();
     }
     updateMainScreen();
     debugHelp();
 })
 
+keypadNegate.addEventListener("click", function () {
+    console.log(Number(displayNumber.join("")) >= 0)
+
+    console.log(Number(displayNumber.join("")) < 0);
+
+    // if(Number(displayNumber.join("")) < 0){
+    //     console.log("INSIDE");
+    //     displayNumber.shift();
+    //     updateMainScreen();
+    // }
+
+    if (Number(displayNumber.join("")) >= 1) {
+        displayNumber.unshift("-");
+        updateMainScreen();
+    } else if (Number(displayNumber.join("")) == 0)  {
+        console.log("can not negate 0");
+    }
+    else {
+        displayNumber.shift();
+        updateMainScreen();
+    }
+
+
+})
+
 //event listeners for mathematical operator keypads
 
-keypadPlus.addEventListener("click",function(){
+keypadPlus.addEventListener("click", function () {
 
-    if(currOperator == "+"){
+    if (currOperator == "+") {
         return;
     }
 
 
-    if(Number(displayNumber.join()) == 0){
+    if (Number(displayNumber.join()) == 0) {
         addOperator("+");
         debugHelp();
         return;
     }
 
-    if(numsToOperate.length == 1 || (displayNumber.length == 1 && numsToOperate.length == 0)){
+    if (numsToOperate.length == 1 || (displayNumber.length == 1 && numsToOperate.length == 0)) {
         console.log("disabled button");
         return;
     }
 
     //if((displayNumber.length == 1 && numsToOperate.length == 0)){
-       // return;
+    // return;
     //}
 
     addOperator("+");
     debugHelp();
 });
 
-keypadSubtract.addEventListener("click",function(){
+keypadSubtract.addEventListener("click", function () {
 
-    if(currOperator == "-"){
+    if (currOperator == "-") {
         return;
     }
 
-    if(Number(displayNumber.join()) == 0){
+    if (Number(displayNumber.join()) == 0) {
         addOperator("-");
         debugHelp();
         return;
     }
 
-    if(numsToOperate.length == 1 || (displayNumber.length == 1 && numsToOperate.length == 0)){
+    if (numsToOperate.length == 1 || (displayNumber.length == 1 && numsToOperate.length == 0)) {
         console.log("disabled button");
         return;
     }
@@ -284,25 +312,25 @@ keypadSubtract.addEventListener("click",function(){
     debugHelp();
 });
 
-keypadMultiply.addEventListener("click",function(){
+keypadMultiply.addEventListener("click", function () {
 
-    if(currOperator == "*"){
+    if (currOperator == "*") {
         return;
     }
 
 
-    if(Number(displayNumber.join()) == 0){
+    if (Number(displayNumber.join()) == 0) {
         addOperator("*");
         debugHelp();
         return;
     }
 
-     if(numsToOperate.length == 1 || (displayNumber.length == 1 && numsToOperate.length == 0)){
+    if (numsToOperate.length == 1 || (displayNumber.length == 1 && numsToOperate.length == 0)) {
         console.log("disabled button");
         return;
-     }
+    }
 
-  
+
     // if(numsToOperate.length == 1 || (displayNumber.length == 1 && numsToOperate.length == 0)){
     //     console.log("disabled button");
     //     return;
@@ -314,20 +342,20 @@ keypadMultiply.addEventListener("click",function(){
     debugHelp();
 })
 
-keypadDivide.addEventListener("click",function(){
+keypadDivide.addEventListener("click", function () {
 
-    if(currOperator == "/"){
+    if (currOperator == "/") {
         return;
     }
 
 
-    if(Number(displayNumber.join()) == 0){
+    if (Number(displayNumber.join()) == 0) {
         addOperator("/");
         debugHelp();
         return;
     }
 
-    if(numsToOperate.length == 1 || (displayNumber.length == 1 && numsToOperate.length == 0)){
+    if (numsToOperate.length == 1 || (displayNumber.length == 1 && numsToOperate.length == 0)) {
         console.log("disabled button")
         return;
     }
@@ -338,7 +366,7 @@ keypadDivide.addEventListener("click",function(){
 
 //event listeners for special keypads
 
-keypadClear.addEventListener("click",function(){
+keypadClear.addEventListener("click", function () {
     clearDisplayNumber();
     clearNumsToOperate();
     currOperator = null;
@@ -350,52 +378,52 @@ keypadClear.addEventListener("click",function(){
 
 //event listeners for numerical keypads
 
-keypadZero.addEventListener("click",function(){
+keypadZero.addEventListener("click", function () {
     keypadClick(0);
     debugHelp();
 });
 
-keypadOne.addEventListener("click",function(){
+keypadOne.addEventListener("click", function () {
     keypadClick(1);
     debugHelp();
 });
 
-keypadTwo.addEventListener("click",function(){
+keypadTwo.addEventListener("click", function () {
     keypadClick(2);
     debugHelp();
 });
 
-keypadThree.addEventListener("click",function(){
+keypadThree.addEventListener("click", function () {
     keypadClick(3);
     debugHelp();
 });
 
-keypadFour.addEventListener("click",function(){
+keypadFour.addEventListener("click", function () {
     keypadClick(4);
     debugHelp();
 });
 
-keypadFive.addEventListener("click",function(){
+keypadFive.addEventListener("click", function () {
     keypadClick(5);
     debugHelp();
 });
 
-keypadSix.addEventListener("click",function(){
+keypadSix.addEventListener("click", function () {
     keypadClick(6);
     debugHelp();
 });
 
-keypadSeven.addEventListener("click",function(){
+keypadSeven.addEventListener("click", function () {
     keypadClick(7);
     debugHelp();
 });
 
-keypadEight.addEventListener("click",function(){
+keypadEight.addEventListener("click", function () {
     keypadClick(8);
     debugHelp();
 });
 
-keypadNine.addEventListener("click",function(){
+keypadNine.addEventListener("click", function () {
     keypadClick(9);
     debugHelp();
 });
@@ -408,41 +436,41 @@ keypadNine.addEventListener("click",function(){
 
 
 
-function operate(opp,numOne,numTwo){
+function operate(opp, numOne, numTwo) {
 
     let result;
-    if(opp == "+"){
-        result = add(numOne,numTwo);
-    }else if(opp == "-"){
+    if (opp == "+") {
+        result = add(numOne, numTwo);
+    } else if (opp == "-") {
         console.log(numOne + currOperator + numTwo);
-        result = subtract(numOne,numTwo);
+        result = subtract(numOne, numTwo);
         console.log(result);
-    }else if(opp == "*"){
+    } else if (opp == "*") {
         console.log(numOne + currOperator + numTwo);
-        result = multiply(numOne,numTwo);
+        result = multiply(numOne, numTwo);
         console.log(result);
-    }else if(opp == "/"){
-        result = divide(numOne,numTwo);
-    }else{
-        result = add(numOne,numTwo);
+    } else if (opp == "/") {
+        result = divide(numOne, numTwo);
+    } else {
+        result = add(numOne, numTwo);
     }
 
     return result;
 }
 
-function add(a,b){
+function add(a, b) {
     return a + b;
 }
 
-function subtract(a,b){
+function subtract(a, b) {
     return a - b;
 }
 
-function multiply(a,b){
+function multiply(a, b) {
     return a * b;
 }
 
-function divide(a,b){
+function divide(a, b) {
     return a / b;
 }
 
