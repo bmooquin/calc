@@ -75,22 +75,16 @@ function keypadClick(number){
         return
     }*/
 
-    //WE ARE OVER HERE//
 
 
     console.log("Zero Status: " + (number == 0 && displayNumber[0] == 0 && numsToOperate.length != 1) )
 
-    //STEP 1: TO COMMENT OUT THE BELOW LINES 
-    //NOW IT SHOULD ALLOW TO ENTER ZERO ANY TIME, AND THERE SHOULD NOT BE MULTIPLE DISPLAYS OF ZERO
-    //HOPEFULLY THE 0 FIRST OPERATIONS WILL STILL WORK CORRECTLY 
 
     // if(number == 0 && displayNumber[0] == 0 && numsToOperate.length != 1){
     //     console.log("Disabled button");
     //     return;
     // }
 
-    //NOW WE WILL HAVE TO PROGRAM THE LOGIC THAT DOESN'T USE displayNumber.length to implememnt the 
-    //maximum character limit      
 
 
 
@@ -98,17 +92,12 @@ function keypadClick(number){
         clearNumsToOperate();
     }
 
-    //STEP 2: TEMPORARILY COMMENTING OUT THE IF STATMENT TO SEE THE RESULTS OF STRING LENGTH 
 
-    //STEP 3: GOING TO REPLACE THE FOLLOWING: 
     //if(displayNumber.length < 14) with if( displayNumber.join("").length < 14)
     //because the above should not increase if there are zeros upon zeros entered, it should stay at 1 
 
     
-    
-    //STEP 4: WE ARE GOING TO TRY TO MAKE IT SO THAT IF THE NUMBER IS ALREADY ZERO, THEN WE WILL NOT 
-    //UPDATE THE displayNumber.... WE WILL NEED TO IMMEDIATELY TEST ALL OF THE ZERO OPERATIONS TO MAKE SURE
-    //THEY WORK... IT WILL NOT WORK, BUT IT MAY WORK IF WE CHANGE THE CODE TO UPDATE ....TRYING TO USE A NESTED IF STATEMENT
+
     //Old Code below:
     //            displayNumber.push(number);
     //            updateMainScreen();
@@ -356,6 +345,8 @@ keypadClear.addEventListener("click",function(){
     mainScreen.textContent = Number(displayNumber.join(""));
     debugHelp();
 });
+
+
 
 //event listeners for numerical keypads
 
