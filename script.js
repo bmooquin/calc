@@ -61,8 +61,13 @@ const mainScreen = document.querySelector(".main-screen");
 const keypadClear = document.querySelector("#clear");
 const keypadBackspace = document.querySelector("#backspace");
 const keypadNegate = document.querySelector("#negate");
+const keypadDot = document.querySelector("#dot");
 
 mainScreen.textContent = Number(displayNumber.join());
+
+
+
+
 
 function removeTrailingZerosDN() {
     if (displayNumber[0] == 0 && displayNumber[1] == 0) {
@@ -75,6 +80,8 @@ function keypadClick(number) {
         if(number == 0 && displayNumber.length == 0 && numsToOperate.length != 1 && displayNumber[0] == "0"){
             return
         }*/
+
+    resetMainScreen();
 
 
 
@@ -136,8 +143,81 @@ function debugHelp() {
     console.log("currOperater: " + currOperator);
 }
 
+function resetMainScreen(){
+    if(mainScreen.style.fontSize == "35px"){
+        mainScreen.style.fontSize = "43px";
+    }
+}
+
+
+
 function updateMainScreen() {
-    mainScreen.textContent = Number(displayNumber.join(""));
+
+    console.log(displayNumber[0] == 0 && displayNumber[1] == ".")
+
+    // if(displayNumber.includes(".") && !(displayNumber.includes("-"))){
+    //     mainScreen.textContent = displayNumber.join("");
+    //     //mainScreen.textContent = displayNumber.join("").slice(1,displayNumber.join("").length);
+    // }
+    // else if (displayNumber.includes(".") && displayNumber.includes("-")){
+    //     mainScreen.textContent = displayNumber.join("");
+    //    // mainScreen.textContent = "-" + displayNumber.join("").slice(2,displayNumber.join("").length);
+    // }
+
+    console.log(Number(displayNumber.join("")).toString().includes("e"));
+
+
+    // if(displayNumber[displayNumber.length - 1] == "."){
+    //     mainScreen.textContent = Number(displayNumber.join("")) + "."
+    // } 
+    // else if(Number(displayNumber.join("")) == 0 && displayNumber.length >= 3){
+    //     console.log("INSIDE");
+    //     mainScreen.textContent = displayNumber.join("");
+    // }
+
+
+    //OLD CODE: 
+    // if(displayNumber.includes(".")){
+    //     if(displayNumber[0] == "-" && !(Number(displayNumber.join("")) < 0 && Number(displayNumber.join("")) > -1)){
+    //         mainScreen.textContent = displayNumber.join("").slice(0,1) + displayNumber.join("").slice(2,displayNumber.join("").length);
+    //     } else if(Number(displayNumber.join("")) == 0 ) {
+    //         mainScreen.textContent = displayNumber.join("");
+    //     } else if(Number(displayNumber.join("")) > 0 && Number(displayNumber.join("")) < 1){
+    //         mainScreen.textContent = displayNumber.join("");
+    //     } else if(Number(displayNumber.join("")) < 0 && Number(displayNumber.join("")) > -1){
+    //         mainScreen.textContent = displayNumber.join("");
+    //     }
+    //     else {
+    //         mainScreen.textContent = displayNumber.join("").slice(1,displayNumber.join("").length);
+    //     }
+    // }
+
+
+
+    if(displayNumber.includes(".")){
+        if(displayNumber[0] == "-" && !(Number(displayNumber.join("")) < 0 && Number(displayNumber.join("")) > -1) && Number(displayNumber.join("")) != 0){
+            mainScreen.textContent = displayNumber.join("").slice(0,1) + displayNumber.join("").slice(2,displayNumber.join("").length);
+        } else if(Number(displayNumber.join("")) == 0 && displayNumber[0] != "-") {
+            mainScreen.textContent = displayNumber.join("");
+        } else if(Number(displayNumber.join("")) == 0 && displayNumber[0] == "-"){
+            displayNumber.shift();
+            mainScreen.textContent = displayNumber.join("");
+        }
+        else if(Number(displayNumber.join("")) > 0 && Number(displayNumber.join("")) < 1){
+            mainScreen.textContent = displayNumber.join("");
+        } else if(Number(displayNumber.join("")) < 0 && Number(displayNumber.join("")) > -1){
+            mainScreen.textContent = displayNumber.join("");
+        }
+        else {
+            mainScreen.textContent = displayNumber.join("").slice(1,displayNumber.join("").length);
+        }
+    }
+    else if(Number(displayNumber.join("")).toString().includes("e")){
+        mainScreen.textContent = displayNumber.join("");
+    }
+    else {
+        mainScreen.textContent = Number(displayNumber.join(""));
+     }
 }
 
 function clearDisplayNumber() {
@@ -153,7 +233,7 @@ function clearNumsToOperate() {
 function addOperator(opp) {
     currOperator = opp;
 
-    //WE ARE NOW HERE FROM THE keypadClick function... we are going to write a seperate function
+    // we are going to write a seperate function
     //that removes the trailing zeros from the displayNumber
 
 
@@ -178,9 +258,29 @@ function addOperator(opp) {
 function checkSize(initValue) {
     const stringValue = initValue.toString();
     let procString;
+    //let procArray;
 
-    if (stringValue.length > 14) {
-        procString = stringValue.slice(0, 13);
+
+    console.log("From checkSize(): " + stringValue);
+    console.log("From checkSize(): " + initValue.toFixed(2));
+    console.log("From checkSize(): " + stringValue.length);
+    console.log("From checkSize(): " + typeof stringValue);
+
+    // if (stringValue.includes("e")){
+    //     procArray = Number(stringValue).toFixed(14).split("");
+    //     console.log(procArray);
+
+    //     while(procArray[procArray.length - 1] == 0){
+    //         procArray.pop();
+    //     }
+
+    //     console.log(procArray);
+
+    // }
+
+
+    if (stringValue.length > 18) {
+        procString = stringValue.slice(0, 17);
         return Number(procString);
     }
 
@@ -215,7 +315,15 @@ keypadEqual.addEventListener("click", function () {
     }
 
     const locResult = operate(currOperator, numsToOperate[0], numsToOperate[1]);
+    console.log("locResult from keypadEqual method: " + locResult);
+    console.log("locResult length: " + locResult.toString().length);
+
     result = checkSize(locResult);
+
+    if(result.toString().length > 14){
+        mainScreen.style.fontSize = "35px";
+    }
+
 
     mainScreen.textContent = result;
 
@@ -231,9 +339,23 @@ keypadEqual.addEventListener("click", function () {
 })
 
 keypadBackspace.addEventListener("click", function () {
-    if (displayNumber.length != 1) {
+
+    // if (displayNumber.length != 1) {
+    //     console.log("POPPED")
+    //     displayNumber.pop();
+    // } 
+
+     
+    if(displayNumber.length == 3 && displayNumber[0] == "-"){
+        //console.log("POPPED AND SHIFTED");
         displayNumber.pop();
+        displayNumber.shift();
     }
+    else if (displayNumber.length != 1) {
+        //console.log("POPPED")
+        displayNumber.pop();
+    } 
+    
     updateMainScreen();
     debugHelp();
 })
@@ -249,19 +371,34 @@ keypadNegate.addEventListener("click", function () {
     //     updateMainScreen();
     // }
 
-    if (Number(displayNumber.join("")) >= 1) {
+    if (Number(displayNumber.join("")) > 0) {
         displayNumber.unshift("-");
         updateMainScreen();
     } else if (Number(displayNumber.join("")) == 0)  {
         console.log("can not negate 0");
-    }
+    } 
     else {
         displayNumber.shift();
         updateMainScreen();
     }
 
+})
+
+keypadDot.addEventListener("click",function(){
+
+    resetMainScreen();
+
+    if(!displayNumber.includes(".")){
+        displayNumber.push(".");
+        console.log(displayNumber);
+        updateMainScreen();
+    }else{
+        console.log("there is already a point");
+    }
+
 
 })
+
 
 //event listeners for mathematical operator keypads
 
@@ -367,6 +504,7 @@ keypadDivide.addEventListener("click", function () {
 //event listeners for special keypads
 
 keypadClear.addEventListener("click", function () {
+    resetMainScreen();
     clearDisplayNumber();
     clearNumsToOperate();
     currOperator = null;
