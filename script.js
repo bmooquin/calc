@@ -501,17 +501,17 @@ keypadEqual.addEventListener("click", function () {
 
 
     if (numsToOperate.length == 1) {
+        currOperator = undefined;
         numsToOperate.push(0);
         console.log("Now, because the length was only one it adds a zero: " + numsToOperate);
-
     }
 
 
-    //if(currOperator == undefined){
-    //    topScreen.textContent = numsToOperate[0] + " = ";
-    //} else {
+    if(currOperator == undefined){
+       topScreen.textContent = numsToOperate[0] + " = ";
+     } else {
         topScreen.textContent = numsToOperate[0] + " " + getDisplayFriendly(currOperator) + " " + numsToOperate[1] + " =";
-   // }
+    }
 
     const locResult = operate(currOperator, numsToOperate[0], numsToOperate[1]);
     console.log("locResult from keypadEqual method: " + locResult);
@@ -539,6 +539,8 @@ keypadEqual.addEventListener("click", function () {
 
     //result = operate(currOperator, numsToOperate[0],numsToOperate[1]);
     //mainScreen.textContent = result;
+
+
 
 
     clearDisplayNumber();
