@@ -100,7 +100,8 @@ function keypadClick(number) {
         onSecondNumber = true;
     }
 
-    if(lastKeyPressed == "="){
+    //The part below after || operator was added to accomodate if the user pressed the negate key on an equals result 
+    if(lastKeyPressed == "=" || lastKeyPressed == "pm" && numsToOperate.length == 2){
         topScreen.textContent = "";
     }
 
@@ -366,7 +367,9 @@ function addOperator(opp) {
     //THE LOGIC ABOVE WAS TO ALLOW THE CHANGING OF THE currOperator if the user changed his mind about the first operator 
 
     //console.log("numsToOperate.length = " + numsToOperate.length); 
-    if (numsToOperate.length == 2 && lastKeyPressed == "="){
+    // The second part after the || operater was added to account for when the user presses the negate key on the result 
+
+    if (numsToOperate.length == 2 && lastKeyPressed == "=" || numsToOperate.length == 2 && lastKeyPressed == "pm"){
         clearNumsToOperate();
         numsToOperate.push(Number(mainScreen.textContent));
     }
@@ -592,6 +595,23 @@ keypadNegate.addEventListener("click", function () {
     //     updateMainScreen();
     // }
 
+    //The below is to add the negate identifier on a result 
+
+    if(mainScreen.textContent == result){
+        if (Number(mainScreen.textContent) > 0) {
+            mainScreen.textContent = "-" + (mainScreen.textContent);
+            result = Number(mainScreen.textContent);
+        } else if (Number(mainScreen.textContent) == 0)  {
+            console.log("can not negate 0");
+        } 
+        else {
+            mainScreen.textContent = mainScreen.textContent.slice(1,mainScreen.textContent.length);
+            result = Number(mainScreen.textContent);
+        }
+    }
+
+
+
     if (Number(displayNumber.join("")) > 0) {
         displayNumber.unshift("-");
         updateMainScreen();
@@ -606,6 +626,13 @@ keypadNegate.addEventListener("click", function () {
 })
 
 keypadDot.addEventListener("click",function(){
+
+
+    if (numsToOperate.length == 2) {
+        clearNumsToOperate();
+        topScreen.textContent = "";
+    }
+
 
     lastKeyPressed = "dt";
     console.log(lastKeyPressed);
@@ -624,6 +651,10 @@ keypadDot.addEventListener("click",function(){
 
 })
 
+keypadCE.addEventListener("click", function(){
+    clearDisplayNumber();
+    mainScreen.textContent = Number(displayNumber.join(""));
+})
 
 //event listeners for mathematical operator keypads
 
