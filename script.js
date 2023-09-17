@@ -32,7 +32,7 @@ let currOperator;
 let result;
 let lastKeyPressed;
 
-let onSecondNumber = false; 
+let onSecondNumber = false;
 let setClear = true;
 
 const displayNumber = [0]
@@ -96,19 +96,19 @@ function keypadClick(number) {
     //     setClear = false; 
     // }
 
-    if(numsToOperate.length == 1 && (lastKeyPressed == "+" || lastKeyPressed == "-" || lastKeyPressed == "*" || lastKeyPressed == "/")){
+    if (numsToOperate.length == 1 && (lastKeyPressed == "+" || lastKeyPressed == "-" || lastKeyPressed == "*" || lastKeyPressed == "/")) {
         onSecondNumber = true;
     }
 
     //The part below after || operator was added to accomodate if the user pressed the negate key on an equals result 
-    if(lastKeyPressed == "=" || lastKeyPressed == "pm" && numsToOperate.length == 2){
+    if (lastKeyPressed == "=" || lastKeyPressed == "pm" && numsToOperate.length == 2) {
         topScreen.textContent = "";
     }
 
 
     //to update lastKeyPressed
 
-    switch(number){
+    switch (number) {
         case 0:
             lastKeyPressed = "0";
             console.log(lastKeyPressed);
@@ -213,14 +213,14 @@ function debugHelp() {
     console.log("currOperater: " + currOperator);
 }
 
-function resetMainScreen(){
-    if(mainScreen.style.fontSize != "43px"){
+function resetMainScreen() {
+    if (mainScreen.style.fontSize != "43px") {
         mainScreen.style.fontSize = "43px";
     }
 }
 
 
-function clearTopScreen(){
+function clearTopScreen() {
     topScreen.textContent = "";
 }
 
@@ -268,30 +268,30 @@ function updateMainScreen() {
 
 
 
-    if(displayNumber.includes(".")){
-        if(displayNumber[0] == "-" && !(Number(displayNumber.join("")) < 0 && Number(displayNumber.join("")) > -1) && Number(displayNumber.join("")) != 0){
-            mainScreen.textContent = displayNumber.join("").slice(0,1) + displayNumber.join("").slice(2,displayNumber.join("").length);
-        } else if(Number(displayNumber.join("")) == 0 && displayNumber[0] != "-") {
+    if (displayNumber.includes(".")) {
+        if (displayNumber[0] == "-" && !(Number(displayNumber.join("")) < 0 && Number(displayNumber.join("")) > -1) && Number(displayNumber.join("")) != 0) {
+            mainScreen.textContent = displayNumber.join("").slice(0, 1) + displayNumber.join("").slice(2, displayNumber.join("").length);
+        } else if (Number(displayNumber.join("")) == 0 && displayNumber[0] != "-") {
             mainScreen.textContent = displayNumber.join("");
-        } else if(Number(displayNumber.join("")) == 0 && displayNumber[0] == "-"){
+        } else if (Number(displayNumber.join("")) == 0 && displayNumber[0] == "-") {
             displayNumber.shift();
             mainScreen.textContent = displayNumber.join("");
         }
-        else if(Number(displayNumber.join("")) > 0 && Number(displayNumber.join("")) < 1){
+        else if (Number(displayNumber.join("")) > 0 && Number(displayNumber.join("")) < 1) {
             mainScreen.textContent = displayNumber.join("");
-        } else if(Number(displayNumber.join("")) < 0 && Number(displayNumber.join("")) > -1){
+        } else if (Number(displayNumber.join("")) < 0 && Number(displayNumber.join("")) > -1) {
             mainScreen.textContent = displayNumber.join("");
         }
         else {
-            mainScreen.textContent = displayNumber.join("").slice(1,displayNumber.join("").length);
+            mainScreen.textContent = displayNumber.join("").slice(1, displayNumber.join("").length);
         }
     }
-    else if(Number(displayNumber.join("")).toString().includes("e")){
+    else if (Number(displayNumber.join("")).toString().includes("e")) {
         mainScreen.textContent = displayNumber.join("");
     }
     else {
         mainScreen.textContent = Number(displayNumber.join(""));
-     }
+    }
 }
 
 function clearDisplayNumber() {
@@ -305,12 +305,12 @@ function clearNumsToOperate() {
 }
 
 
-function getDisplayFriendly(opp){
+function getDisplayFriendly(opp) {
 
     let friendlyOpp;
 
-    switch(opp){
-        case "+": 
+    switch (opp) {
+        case "+":
             friendlyOpp = "+";
             break;
         case "-":
@@ -322,7 +322,7 @@ function getDisplayFriendly(opp){
         case "/":
             friendlyOpp = "÷";
             break;
-        default: 
+        default:
     }
 
     return friendlyOpp;
@@ -348,7 +348,7 @@ function addOperator(opp) {
     //TEMPORARILLY ADDING AN ELSE STATEMENT TO BELOW (ORIGINAL WAS WITHOUT ELSE STATEMENT) FOR THE PURPOSES 
     //OF DEBUGGING 
 
-    if (lastKeyPressed == "+" || lastKeyPressed == "-" || lastKeyPressed == "*" || lastKeyPressed == "/"){
+    if (lastKeyPressed == "+" || lastKeyPressed == "-" || lastKeyPressed == "*" || lastKeyPressed == "/") {
         console.log("HERE!");
         currOperator = opp;
         topScreen.textContent = numsToOperate[0] + " " + getDisplayFriendly(currOperator);
@@ -369,7 +369,7 @@ function addOperator(opp) {
     //console.log("numsToOperate.length = " + numsToOperate.length); 
     // The second part after the || operater was added to account for when the user presses the negate key on the result 
 
-    if (numsToOperate.length == 2 && lastKeyPressed == "=" || numsToOperate.length == 2 && lastKeyPressed == "pm"){
+    if (numsToOperate.length == 2 && lastKeyPressed == "=" || numsToOperate.length == 2 && lastKeyPressed == "pm") {
         clearNumsToOperate();
         numsToOperate.push(Number(mainScreen.textContent));
     }
@@ -377,25 +377,25 @@ function addOperator(opp) {
 
 
     //could also maybe use numsToOperate.length == 2 for the below condition
-    if(onSecondNumber == true){
+    if (onSecondNumber == true) {
 
 
         const locResult = operate(currOperator, numsToOperate[0], numsToOperate[1]);
         result = locResult;
 
-        if(result.toString().length > 22){
+        if (result.toString().length > 22) {
             mainScreen.style.fontSize = "25px";
         }
-        else if(result.toString().length > 20){
+        else if (result.toString().length > 20) {
             mainScreen.style.fontSize = "28px";
-        } else if(result.toString().length > 18){
+        } else if (result.toString().length >= 18) {
             mainScreen.style.fontSize = "30px";
-        } else if(result.toString().length > 14){
+        } else if (result.toString().length > 14) {
             mainScreen.style.fontSize = "35px";
         }
-        
 
-    
+
+
         mainScreen.textContent = result;
 
         onSecondNumber == false;
@@ -411,7 +411,7 @@ function addOperator(opp) {
     currOperator = opp;
 
 
-    if (numsToOperate.length == 1){
+    if (numsToOperate.length == 1) {
         topScreen.textContent = numsToOperate[0] + " " + getDisplayFriendly(currOperator);
     }
 
@@ -420,7 +420,7 @@ function addOperator(opp) {
     //should not be set until the user types a keypad (also, in case
     //)
 
-    onSecondNumber = false; 
+    onSecondNumber = false;
     clearDisplayNumber();
 }
 
@@ -465,7 +465,7 @@ keypadEqual.addEventListener("click", function () {
     lastKeyPressed = "=";
     console.log(lastKeyPressed);
 
-    onSecondNumber = false; 
+    onSecondNumber = false;
 
 
     //TEMPORARILY DISABLING THE PREVENTATIVE QUALIFIER
@@ -510,9 +510,9 @@ keypadEqual.addEventListener("click", function () {
     }
 
 
-    if(currOperator == undefined){
-       topScreen.textContent = numsToOperate[0] + " = ";
-     } else {
+    if (currOperator == undefined) {
+        topScreen.textContent = numsToOperate[0] + " = ";
+    } else {
         topScreen.textContent = numsToOperate[0] + " " + getDisplayFriendly(currOperator) + " " + numsToOperate[1] + " =";
     }
 
@@ -522,17 +522,17 @@ keypadEqual.addEventListener("click", function () {
 
     result = locResult;
 
-    if(result.toString().length > 22){
+    if (result.toString().length > 22) {
         mainScreen.style.fontSize = "25px";
     }
-    else if(result.toString().length > 20){
+    else if (result.toString().length > 20) {
         mainScreen.style.fontSize = "28px";
-    } else if(result.toString().length > 18){
+    } else if (result.toString().length >= 18) {
         mainScreen.style.fontSize = "30px";
-    } else if(result.toString().length > 14){
+    } else if (result.toString().length > 14) {
         mainScreen.style.fontSize = "35px";
     }
-    
+
     console.log(locResult);
     console.log(result);
     console.log(typeof checkSize(locResult));
@@ -547,7 +547,7 @@ keypadEqual.addEventListener("click", function () {
 
 
     clearDisplayNumber();
-    
+
     //Was removed because of additional functionality needed and it does not seem to be used anywhere
     //currOperator = null;
 
@@ -565,8 +565,8 @@ keypadBackspace.addEventListener("click", function () {
     //     displayNumber.pop();
     // } 
 
-     
-    if(displayNumber.length == 3 && displayNumber[0] == "-"){
+
+    if (displayNumber.length == 3 && displayNumber[0] == "-") {
         //console.log("POPPED AND SHIFTED");
         displayNumber.pop();
         displayNumber.shift();
@@ -574,8 +574,8 @@ keypadBackspace.addEventListener("click", function () {
     else if (displayNumber.length != 1) {
         //console.log("POPPED")
         displayNumber.pop();
-    } 
-    
+    }
+
     updateMainScreen();
     debugHelp();
 })
@@ -584,7 +584,7 @@ keypadNegate.addEventListener("click", function () {
 
     lastKeyPressed = "pm";
     console.log(lastKeyPressed);
-                        
+
     console.log(Number(displayNumber.join("")) >= 0)
 
     console.log(Number(displayNumber.join("")) < 0);
@@ -597,16 +597,23 @@ keypadNegate.addEventListener("click", function () {
 
     //The below is to add the negate identifier on a result 
 
-    if(mainScreen.textContent == result){
+    if (mainScreen.textContent == result) {
         if (Number(mainScreen.textContent) > 0) {
             mainScreen.textContent = "-" + (mainScreen.textContent);
             result = Number(mainScreen.textContent);
-        } else if (Number(mainScreen.textContent) == 0)  {
+            if(result.toString().length == 15){
+                mainScreen.style.fontSize = "40px";
+            }
+
+        } else if (Number(mainScreen.textContent) == 0) {
             console.log("can not negate 0");
-        } 
+        }
         else {
-            mainScreen.textContent = mainScreen.textContent.slice(1,mainScreen.textContent.length);
+            mainScreen.textContent = mainScreen.textContent.slice(1, mainScreen.textContent.length);
             result = Number(mainScreen.textContent);
+            if(result.toString().length == 14){
+                mainScreen.style.fontSize = "43px";
+            }
         }
     }
 
@@ -615,9 +622,9 @@ keypadNegate.addEventListener("click", function () {
     if (Number(displayNumber.join("")) > 0) {
         displayNumber.unshift("-");
         updateMainScreen();
-    } else if (Number(displayNumber.join("")) == 0)  {
+    } else if (Number(displayNumber.join("")) == 0) {
         console.log("can not negate 0");
-    } 
+    }
     else {
         displayNumber.shift();
         updateMainScreen();
@@ -625,7 +632,7 @@ keypadNegate.addEventListener("click", function () {
 
 })
 
-keypadDot.addEventListener("click",function(){
+keypadDot.addEventListener("click", function () {
 
 
     if (numsToOperate.length == 2) {
@@ -639,11 +646,11 @@ keypadDot.addEventListener("click",function(){
 
     resetMainScreen();
 
-    if(!displayNumber.includes(".") && displayNumber.length < 14){
+    if (!displayNumber.includes(".") && displayNumber.length < 14) {
         displayNumber.push(".");
         console.log(displayNumber);
         updateMainScreen();
-    }else{
+    } else {
         console.log("there is already a point");
         console.log("or too much space");
     }
@@ -651,7 +658,7 @@ keypadDot.addEventListener("click",function(){
 
 })
 
-keypadCE.addEventListener("click", function(){
+keypadCE.addEventListener("click", function () {
     clearDisplayNumber();
     mainScreen.textContent = Number(displayNumber.join(""));
 })
@@ -664,7 +671,7 @@ keypadPlus.addEventListener("click", function () {
         console.log("can not press same operator key twice in a row");
         return;
     }
-    
+
 
     //TESTING IT OUT
 
@@ -705,7 +712,7 @@ keypadSubtract.addEventListener("click", function () {
         return;
     }
 
-    
+
 
     // if (Number(displayNumber.join()) == 0) {
     //     addOperator("-");
@@ -735,12 +742,12 @@ keypadMultiply.addEventListener("click", function () {
 
     console.log("Initial numsToOperate: " + numsToOperate.length);
 
-    
+
 
     console.log(numsToOperate.length == 1 && displayNumber.length > 1)
 
 
-    
+
 
     // if (Number(displayNumber.join()) == 0) {
     //     console.log("Here to Debug");
@@ -769,7 +776,7 @@ keypadDivide.addEventListener("click", function () {
         return;
     }
 
-    
+
 
 
 
@@ -807,7 +814,7 @@ keypadClear.addEventListener("click", function () {
 });
 
 
-keypadCE.addEventListener("click", function(){
+keypadCE.addEventListener("click", function () {
     lastKeyPressed = "CE";
     console.log(lastKeyPressed);
 })
